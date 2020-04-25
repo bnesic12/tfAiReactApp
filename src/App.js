@@ -25,6 +25,7 @@ class App extends Component {
       baseURL: `${process.env.REACT_APP_FLASK_SERVER_IP}`,
       timeout: 5000,
     });
+
     const res = await aiServer.get(`/api/images`);
 
     this.setState({
