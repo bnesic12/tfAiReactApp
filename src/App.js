@@ -22,7 +22,7 @@ class App extends Component {
 
     const aiServer = axios.create({
       //baseURL: 'http://127.0.0.1:5000',
-      baseURL: process.env.REACT_APP_FLASK_SERVER_IP,
+      baseURL: `${process.env.REACT_APP_FLASK_SERVER_IP}`,
       timeout: 5000,
     });
     const res = await aiServer.get(`/api/images`);
