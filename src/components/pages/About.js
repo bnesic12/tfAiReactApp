@@ -27,6 +27,8 @@ const About = () => {
           <li>Tensorflow v2</li>
           <li>Keras v2.2.4-tf</li>
           <li>Git</li>
+          <li>Self-signed OpenSSL certificate</li>
+          <li>REST over HTTPS interface</li>
           <li>Nginx service</li>
           <li>Gunicorn service</li>
           <li>Ubuntu AWS EC2 instance</li>
