@@ -7,7 +7,7 @@ const FashionItem = ({ fileName }) => {
     <div className='card text-center'>
       <img
         //src={`http://127.0.0.1:5000/api/images/${fileName}`}
-        src={`${process.env.REACT_APP_FLASK_SERVER_IP}/api/images/${fileName}`}
+        src={`https://15.223.107.254/api/images/${fileName}`}
         alt=''
         className='round-img'
         style={{ width: '60px' }}

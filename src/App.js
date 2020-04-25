@@ -22,7 +22,7 @@ class App extends Component {
 
     const aiServer = axios.create({
       //baseURL: 'http://127.0.0.1:5000',
-      baseURL: `${process.env.REACT_APP_FLASK_SERVER_IP}`,
+      baseURL: 'https://15.223.107.254',
       timeout: 5000,
     });
 
@@ -52,7 +52,7 @@ class App extends Component {
 
     const aiServer = axios.create({
       //baseURL: 'http://127.0.0.1:5000',
-      baseURL: `${process.env.REACT_APP_FLASK_SERVER_IP}`,
+      baseURL: 'https://15.223.107.254',
       timeout: 5000,
     });
 
@@ -63,7 +63,7 @@ class App extends Component {
     this.setState({
       loading: false,
       //imagePreviewUrl: `http://127.0.0.1:5000/api/images/${fileName}`,
-      imagePreviewUrl: `${process.env.REACT_APP_FLASK_SERVER_IP}/api/images/${fileName}`,
+      imagePreviewUrl: `https://15.223.107.254/api/images/${fileName}`,
       message: res.data.predictions[0],
     });
   };
