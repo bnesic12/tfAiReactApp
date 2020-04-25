@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Image Recognition App",
+  "name": "React frontend App for Tensorflow/Keras/AI/NeuralNetwork Flask server that recognizes image",
   "icons": [
     {
       "src": "favicon.ico",

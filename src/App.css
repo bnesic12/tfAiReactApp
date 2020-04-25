@@ -395,6 +395,16 @@ table th {
   cursor: pointer;
 }
 
+.navbarIcon {
+  height: 20px;
+  width: 50px;
+}
+
+.navbarFooter {
+  height: 16px;
+  width: 40px;
+}
+
 /* Darker background on mouse-over */
 .backBtn:hover {
   background-color: #f14733;

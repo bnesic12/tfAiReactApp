@@ -1,18 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import kerasTfLogo from '../images/kerasTfSmall.png';
 
-const Navbar = ({ icon, title }) => {
+const Navbar = ({ title }) => {
   return (
     <nav className='navbar bg-header'>
       <h1>
-        <i className={icon} />
+        <img className='navbarIcon' src={kerasTfLogo} alt='kears/tf' />
         <label> </label>
         {title}
       </h1>
       <ul>
         <li>
-          <Link to='/'>Tensorflow AI</Link>
+          <Link to='/'>Keras/TF AI</Link>
         </li>
         <li>
           <Link to='/about'>About</Link>
@@ -23,13 +24,11 @@ const Navbar = ({ icon, title }) => {
 };
 
 Navbar.defaultProps = {
-  title: 'Tensorflow AI',
-  icon: 'fab fa-github',
+  title: 'Keras/Tensorflow AI',
 };
 
 Navbar.propTypes = {
   title: PropTypes.string.isRequired,
-  icon: PropTypes.string.isRequired,
 };
 
 export default Navbar;
