@@ -15,7 +15,7 @@ const About = () => {
           <li>REST</li>
           <li>JSON</li>
           <li>Git</li>
-          <li>Deployed to AWS using AWS Amplify, CI/CD</li>
+          <li>Deployed to AWS using AWS Amplify, CI/CD, HTTPS</li>
         </ul>
       </div>
       <div>
@@ -27,8 +27,9 @@ const About = () => {
           <li>Tensorflow v2</li>
           <li>Keras v2.2.4-tf</li>
           <li>Git</li>
-          <li>Self-signed OpenSSL certificate</li>
-          <li>REST over HTTPS interface</li>
+          <li>SSL certificate</li>
+          <li>REST</li>
+          <li>AWS ELB (Elastic Load Balancer), HTTPS</li>
           <li>Nginx service</li>
           <li>Gunicorn service</li>
           <li>Ubuntu AWS EC2 instance</li>
