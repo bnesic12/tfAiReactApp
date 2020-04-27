@@ -23,17 +23,40 @@ class App extends Component {
     const aiServer = axios.create({
       baseURL: process.env.REACT_APP_FLASK_SERVER_IP,
       timeout: 5000,
+      crossOrigin: null,
     });
-
-    const res = await aiServer.get(`/api/images`);
-
-    this.setState({
-      images: res.data.items, // {data: {..., items: [...]}}
-      loading: false,
-      imagePreviewUrl: '',
-      message: null,
-      selectedFileName: '',
-    });
+    /*
+     * Handling Errors using async/await
+     * Has to be used inside an async function
+     */
+    try {
+      const res = await aiServer.get(`/api/images`);
+      this.setState({
+        images: res.data.items, // {data: {..., items: [...]}}
+        loading: false,
+        imagePreviewUrl: '',
+        message: null,
+        selectedFileName: '',
+      });
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error);
+      this.setState({
+        images: [],
+        loading: false,
+        imagePreviewUrl: '',
+        message: null,
+        selectedFileName: '',
+      });
+    }
   }
 
   // Send fileName of the image file residing already on the server and
@@ -80,6 +103,7 @@ class App extends Component {
             <i className='fa fa-home'></i> bnesic12 Home
           </button>
         </div>
+        <br></br>
         <div className='container'>
           <Switch>
             <Route
@@ -87,7 +111,15 @@ class App extends Component {
               path='/'
               render={props => (
                 <Fragment>
-                  <FashionItems loading={loading} images={images} />
+                  {images.length > 0 ? (
+                    <FashionItems loading={loading} images={images} />
+                  ) : (
+                    <h3>
+                      Error accessing backend AI server. Please, make sure your
+                      security policy allows access to certified
+                      https://tf.aimg.bnabla.com
+                    </h3>
+                  )}
                 </Fragment>
               )}
             />

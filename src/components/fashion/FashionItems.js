@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const FashionItems = ({ images, loading }) => {
   if (loading) {
     return <Spinner />;
-  } else {
+  } else if (images) {
     return (
       <div style={fashionStyle}>
         {images.map(image => (
@@ -14,6 +14,8 @@ const FashionItems = ({ images, loading }) => {
         ))}
       </div>
     );
+  } else {
+    return <div style={fashionStyle}></div>;
   }
 };
 
