@@ -15,6 +15,7 @@ class App extends Component {
     imagePreviewUrl: '',
     message: null,
     selectedFileName: '',
+    errorMsg: null,
   };
 
   async componentDidMount() {
@@ -27,7 +28,7 @@ class App extends Component {
     });
     /*
      * Handling Errors using async/await
-     * Has to be used inside an async function
+     * has to be done inside an async function
      */
     try {
       const res = await aiServer.get(`/api/images`);
@@ -37,6 +38,7 @@ class App extends Component {
         imagePreviewUrl: '',
         message: null,
         selectedFileName: '',
+        errorMsg: null,
       });
     } catch (error) {
       if (error.response) {
@@ -55,6 +57,8 @@ class App extends Component {
         imagePreviewUrl: '',
         message: null,
         selectedFileName: '',
+        errorMsg:
+          'Error accessing backend AI server. This app needs access to AI server residing at newly registered domain https://tf.aimg.bnabla.com. Please, make sure your security policy allows access to newly registered domains.',
       });
     }
   }
@@ -70,22 +74,44 @@ class App extends Component {
       loading: true,
       imagePreviewUrl: '',
       message: null,
+      errorMsg: null,
     });
+    try {
+      const aiServer = axios.create({
+        baseURL: process.env.REACT_APP_FLASK_SERVER_IP,
+        timeout: 5000,
+      });
 
-    const aiServer = axios.create({
-      baseURL: process.env.REACT_APP_FLASK_SERVER_IP,
-      timeout: 5000,
-    });
+      const res = await aiServer.get(`/api/recogImage/${fileName}`);
 
-    const res = await aiServer.get(`/api/recogImage/${fileName}`);
+      console.log('recogFashionFile() result=', res);
 
-    console.log('recogFashionFile() result=', res);
-
-    this.setState({
-      loading: false,
-      imagePreviewUrl: `${process.env.REACT_APP_FLASK_SERVER_IP}/api/images/${fileName}`,
-      message: res.data.predictions[0],
-    });
+      this.setState({
+        loading: false,
+        imagePreviewUrl: `${process.env.REACT_APP_FLASK_SERVER_IP}/api/images/${fileName}`,
+        message: res.data.predictions[0],
+        error: null,
+      });
+    } catch (error) {
+      if (error.response) {
+        console.log(error.response.data);
+        console.log(error.response.status);
+        console.log(error.response.headers);
+      } else if (error.request) {
+        console.log(error.request);
+      } else {
+        console.log('Error', error.message);
+      }
+      console.log(error);
+      this.setState({
+        images: [],
+        loading: false,
+        imagePreviewUrl: '',
+        message: null,
+        selectedFileName: '',
+        errorMsg: 'Error running image recognition',
+      });
+    }
   };
 
   goHome = () => {
@@ -94,7 +120,7 @@ class App extends Component {
   };
 
   render() {
-    const { loading, images, imagePreviewUrl, message } = this.state;
+    const { loading, images, imagePreviewUrl, message, errorMsg } = this.state;
     return (
       <Router>
         <div className='App'>
@@ -111,14 +137,10 @@ class App extends Component {
               path='/'
               render={props => (
                 <Fragment>
-                  {images.length > 0 ? (
+                  {errorMsg === null ? (
                     <FashionItems loading={loading} images={images} />
                   ) : (
-                    <h3>
-                      Error accessing backend AI server. Please, make sure your
-                      security policy allows access to certified
-                      https://tf.aimg.bnabla.com
-                    </h3>
+                    <h3>{errorMsg}</h3>
                   )}
                 </Fragment>
               )}
